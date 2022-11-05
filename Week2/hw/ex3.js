@@ -17,7 +17,7 @@ db.connect(err => {
 const app = express()
 //Write a query that prints names of all authors and their corresponding mentors
 app.get('/authormentor',(req,res)=> {
-  let sql = 'SELECT author_name, mentor FROM authors'
+  let sql = 'SELECT  authors.author_id AS 'Author ID', authors.author_name AS 'Author Name',mentors.author_name AS 'Mentor Name' FROM authors JOIN authors mentors ON authors.mentor = mentors.author_id;'
   db.query(sql, (err,result) => {
     if(err) throw err
     console.log(result)
