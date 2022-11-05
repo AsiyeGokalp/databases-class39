@@ -30,7 +30,7 @@ app.get('/createdacademie',(req,res) =>{
 
 //create authors table
 app.get('/createdauthors', (req, res) => {
-  let sql = 'CREATE TABLE authors(author_id INT AUTO_INCREMENT, author_name VARCHAR(100), university VARCHAR(100), date_of_birth DATE,h_index INT,gender VARCHAR(1), PRIMARY KEY(author_id))'
+  let sql = 'CREATE TABLE authors(author_id INT AUTO_INCREMENT, author_name VARCHAR(100), university VARCHAR(100), date_of_birth DATE,h_index INT,gender ENUM(F,M), PRIMARY KEY(author_id))'
   db.query(sql, (err,result) => {
     if(err) throw err
     console.log(result)
