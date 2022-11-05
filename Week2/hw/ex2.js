@@ -46,7 +46,7 @@ app.get('/addauthors',(req,res) => {
     ["name 4","university 4", "1967-09-04",25,"F",5],
     ["name 5","university 5", "1973-11-11",17,"M",2],
     ["name 6","university 6", "1984-01-10",12,"M",3],
-    ["name 7","university 7", "1990-02-02",9,"M",5],
+    ["name 7","university 7", "1990-02-02",9,"M",8],
     ["name 8","university 8", "1988-05-05",11,"F",2],
     ["name 9","university 9", "1973-01-09",16,"F",2],
     ["name 10","university 10", "1972-08-10",17,"F",5],
