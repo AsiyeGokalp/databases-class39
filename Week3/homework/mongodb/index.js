@@ -2,6 +2,23 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 
 const { seedDatabase } = require("./seedDatabase.js");
 
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const uri = process.env.MONGODB_URL
+
+const client = new MongoClient(uri);
+
+
+try{
+  client.connect()
+} catch(e) {
+  console.log(e)
+}finally {
+  client.close()
+}
+
 async function createEpisodeExercise(client) {
   /**
    * We forgot to add the last episode of season 9. It has this information:
