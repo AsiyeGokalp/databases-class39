@@ -10,29 +10,29 @@ const uri = process.env.MONGODB_URL
 
 const client = new MongoClient(uri)
 
-const collection = client
-  .db("databaseWeek4")
-  .collection("population_of_countries")
+// const collection = client
+//   .db("databaseWeek4")
+//   .collection("population_of_countries")
 
-async function getCountryPopulationByYear(client, country) {
+async function getCountryPopulationByYear(client, country, collection) {
   const population = await collection.aggregate([
     // First Stage
+    {
+      $match: { Country: country },
+    },
+    // Second Stage
     {
       $group: {
         " _id": "$Year",
         countPopulation: { $sum: { $sum: ["$F", "$M"] } },
       },
     },
-    // Second Stage
-    {
-      $match: { Country: country },
-    },
   ])
   console.log(population)
   return population
 }
 
-async function getTotalPopulationOverhHundred(client, year, age) {
+async function getTotalPopulationOverHundred(client, year, age, collection) {
   const populationOverHundred = await collection.aggregate([
     {
       $match: {
@@ -68,14 +68,18 @@ async function main() {
     serverApi: ServerApiVersion.v1,
   })
 
+  const collection = client
+    .db("databaseWeek4")
+    .collection("population_of_countries")
+
   try {
     await client.connect()
 
     // Seed our database
     await seedDatabase(client)
 
-    await getCountryPopulationByYear(client, "Nederlands")
-    await getTotalPopulationOverhHundred(client, 2022, "100+")
+    await getCountryPopulationByYear(client, "Nederlands", collection)
+    await getTotalPopulationOverHundred(client, 2022, "100+", collection)
   } catch (err) {
     console.error(err)
   } finally {
